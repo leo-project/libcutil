@@ -32,6 +32,8 @@ Build/Install
 ```shell
     git clone git://github.com/leo-project/libcutil.git
     cd libcutil
+    mkdir build
+    cd build
     cmake ..
     make
     make test
