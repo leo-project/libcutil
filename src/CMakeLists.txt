@@ -1,0 +1,6 @@
+INCLUDE_DIRECTORIES(.)
+ADD_LIBRARY(cutil STATIC lcu_cache.c lcu_hashmap.c lcu_slab.c lcu_lru.c lcu_string.c)
+TARGET_LINK_LIBRARIES(cutil m)
+SET_TARGET_PROPERTIES(cutil PROPERTIES VERSION ${serial} SOVERSION ${soserial})
+INSTALL(TARGETS cutil ARCHIVE DESTINATION lib)
+INSTALL(FILES lcu_queue.h lcu_cache.h lcu_hashmap.h lcu_slab.h lcu_lru.h lcu_string.h libcutil.h DESTINATION include)
