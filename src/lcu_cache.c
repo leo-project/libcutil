@@ -1,7 +1,6 @@
 #include <libcutil.h>
 
-lcu_cache* lcu_cache_init(lcu_cache_opt opt, size_t limit, double factor, size_t min, size_t max) {
-    lcu_cache* lc = malloc(sizeof(lcu_cache));
+void lcu_cache_init(lcu_cache* lc, lcu_cache_opt opt, size_t limit, double factor, size_t min, size_t max) {
     int64 hint = (int64)(limit / ((min + max) / 2));
     lc->hmap = lcu_map_init(&StrMapType, hint);
     lc->lru = lcu_lru_create();
@@ -9,7 +8,6 @@ lcu_cache* lcu_cache_init(lcu_cache_opt opt, size_t limit, double factor, size_t
     lcu_slab_init(lc->slab, limit, factor, min, max);
     lc->opt = opt;
     lc->mem_active_size = 0;
-    return lc;
 }
 
 void lcu_cache_eldest(lcu_cache* pc, String* key, String* val) {
@@ -127,6 +125,5 @@ void lcu_cache_destroy(lcu_cache* lc) {
     // @TODO release correctly(map/slab)
     lcu_lru_destroy(lc->lru);
     free(lc->slab);
-    free(lc);
 }
 

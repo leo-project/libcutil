@@ -22,7 +22,7 @@ typedef struct lcu_cache {
 #define lcu_cache_mem_alloc_size(pc) ((pc)->slab->mem_malloced)
 #define lcu_cache_item_size(pc) (lcu_map_count((pc)->hmap))
 
-lcu_cache* lcu_cache_init(lcu_cache_opt opt, size_t limit, double factor, size_t min, size_t max);
+void lcu_cache_init(lcu_cache* pc, lcu_cache_opt opt, size_t limit, double factor, size_t min, size_t max);
 void lcu_cache_get(lcu_cache* pc, String key, String* val);
 bool lcu_cache_put(lcu_cache* pc, String key, String val);
 bool lcu_cache_delete(lcu_cache* pc, String key);
