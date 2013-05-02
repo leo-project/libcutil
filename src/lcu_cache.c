@@ -1,7 +1,7 @@
 #include <libcutil.h>
 
 void lcu_cache_init(lcu_cache* lc, lcu_cache_opt opt, size_t limit, double factor, size_t min, size_t max) {
-    int64 hint = (int64)(limit / ((min + max) / 2));
+    int64 hint = (int64)(limit / ((min + max) / 8)); // @FIXME maybe to be configurable is better
     lc->hmap = lcu_map_init(&StrMapType, hint);
     lc->lru = lcu_lru_create();
     lc->slab = malloc(sizeof(lcu_slab));
@@ -92,7 +92,9 @@ bool lcu_cache_put(lcu_cache* lc, String key, String val) {
     }
     void* slab = lcu_slab_alloc(lc->slab, slabsize);
     if (slab == NULL) {
-        return false;
+        lcu_lru_eject_by_size(lc->lru, lc->slab->item_max, NULL, NULL);
+        slab = lcu_slab_alloc(lc->slab, slabsize);
+        if (slab == NULL) return false;
     }
     newkeystr = slab;
     memcpy(newkeystr, key.str, key.len);
