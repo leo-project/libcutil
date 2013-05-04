@@ -235,7 +235,7 @@ static void *do_slabs_alloc(lcu_slab* ps, const size_t size, unsigned int id) {
         /* if we recently allocated a whole page, return from that */
         ret = psc->end_page_ptr;
         if (--psc->end_page_free != 0) {
-            psc->end_page_ptr = ((caddr_t)psc->end_page_ptr) + psc->size;
+            psc->end_page_ptr = ((char*)psc->end_page_ptr) + psc->size;
         } else {
             psc->end_page_ptr = 0;
         }
