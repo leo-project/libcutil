@@ -4,5 +4,12 @@ include_directories(${CHECK_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${CHECK_LIBRARIES} cutil m)
 include_directories(. ../src)
 add_executable(test_suites main.c check_cache.c check_hashmap.c check_slab.c check_lru.c)
-target_link_libraries(test_suites ${LIBS} pthread rt)
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  set(ADDITIONAL_LIBS pthread)
+else()
+  set(ADDITIONAL_LIBS pthread rt)
+endif()
+target_link_libraries(test_suites ${LIBS} ${ADDITIONAL_LIBS})
+
 add_test(test_suites ${CMAKE_CURRENT_BINARY_DIR}/test_suites)
