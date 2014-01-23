@@ -1,7 +1,7 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-SET(CMAKE_C_FLAGS_RELEASE "-Wall -Wno-strict-aliasing -O2")
+SET(CMAKE_C_FLAGS_RELEASE "-fPIC -Wall -Wno-strict-aliasing -O2")
 
 SET(CMAKE_C_FLAGS_DEBUG "-g")
 
