@@ -1,7 +1,8 @@
 enable_testing()
 find_package(Check REQUIRED)
-include_directories(${CHECK_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${CHECK_LIBRARIES} cutil m)
+find_package(Subunit REQUIRED)
+include_directories(${CHECK_INCLUDE_DIRS} ${SUBUNIT_INCLUDE_DIRS})
+set(LIBS ${LIBS} ${CHECK_LIBRARIES} ${SUBUNIT_LIBRARIES} cutil m)
 include_directories(. ../src)
 add_executable(test_suites main.c check_cache.c check_hashmap.c check_slab.c check_lru.c)
 
