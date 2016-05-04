@@ -1,6 +1,11 @@
 enable_testing()
 find_package(Check REQUIRED)
-find_package(Subunit REQUIRED)
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  ## @TODO - Check kernel version
+  find_package(Subunit REQUIRED)
+endif()
+
 include_directories(${CHECK_INCLUDE_DIRS} ${SUBUNIT_INCLUDE_DIRS})
 set(LIBS ${LIBS} ${CHECK_LIBRARIES} ${SUBUNIT_LIBRARIES} cutil m)
 include_directories(. ../src)
@@ -11,6 +16,6 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 else()
   set(ADDITIONAL_LIBS pthread rt)
 endif()
-target_link_libraries(test_suites ${LIBS} ${ADDITIONAL_LIBS})
 
+target_link_libraries(test_suites ${LIBS} ${ADDITIONAL_LIBS})
 add_test(test_suites ${CMAKE_CURRENT_BINARY_DIR}/test_suites)
