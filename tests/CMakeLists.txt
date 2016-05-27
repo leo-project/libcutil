@@ -2,8 +2,10 @@ enable_testing()
 find_package(Check REQUIRED)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-  ## @TODO - Check kernel version
-  find_package(Subunit REQUIRED)
+  include(DetectLinuxDistro)
+  if(${LINUX_DISTRO_ID} MATCHES "Ubuntu" AND ${LINUX_DISTRO_RELEASE} MATCHES "16.04")
+    find_package(Subunit REQUIRED)
+  endif()
 endif()
 
 include_directories(${CHECK_INCLUDE_DIRS} ${SUBUNIT_INCLUDE_DIRS})
