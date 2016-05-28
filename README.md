@@ -1,6 +1,7 @@
-libcutil
-========
-Utility functions for C language. Features are described below.
+# libcutil
+## Overview
+
+Utility functions for C language. Features are described below:
 
 - `basic data structures`: such as (singly|doubly)linked list, queue etc copied from [freebsd](http://www.freebsd.org/)
 - `lru`: LRU(Least Recently Used) based on doubly linked list
@@ -8,27 +9,35 @@ Utility functions for C language. Features are described below.
 - `slab`: slab allocator for fast memory management(malloc/free)
 - `cache`: simple cache implementation with LRU
 
-Dependencies
-============
+## Dependencies
+
 * [Check](http://check.sourceforge.net/) for C Unit tests
 * [CMake](http://www.cmake.org/) for building/testing/deploying C programs
+* Ubuntu 16.04:
+    * ``libsubunit-dev``
 
-Install dependencies by package manager
-=======================================
-* deb
+## Install dependencies
 
-```shell
-    sudo apt-get install cmake check
-```
-
-* rpm
+* For Ubuntu 16.04
 
 ```shell
-    sudo yum install cmake check check-devel
+$ sudo apt-get install cmake check libsubunit-dev
 ```
 
-Build/Install
-=============
+* For Ubuntu/Debian
+
+```shell
+$ sudo apt-get install cmake check
+```
+
+* For RHEL/CentOS
+
+```shell
+$ sudo yum install cmake check check-devel
+```
+
+## Build/Install libcutil
+
 ```shell
     git clone git://github.com/leo-project/libcutil.git
     cd libcutil
@@ -39,3 +48,7 @@ Build/Install
     make test
     sudo make install
 ```
+
+## Sponsors
+
+LeoProject/LeoFS is sponsored by [Rakuten, Inc.](http://global.rakuten.com/corp/) and supported by [Rakuten Institute of Technology](http://rit.rakuten.co.jp/).

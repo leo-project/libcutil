@@ -1,7 +1,17 @@
 enable_testing()
 find_package(Check REQUIRED)
-include_directories(${CHECK_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${CHECK_LIBRARIES} cutil m)
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  include(DetectLinuxDistro)
+  if(LINUX_DISTRO_ID AND LINUX_DISTRO_RELEASE)
+    if(${LINUX_DISTRO_ID} MATCHES "Ubuntu" AND ${LINUX_DISTRO_RELEASE} MATCHES "16.04")
+      find_package(Subunit REQUIRED)
+    endif()
+  endif()
+endif()
+
+include_directories(${CHECK_INCLUDE_DIRS} ${SUBUNIT_INCLUDE_DIRS})
+set(LIBS ${LIBS} ${CHECK_LIBRARIES} ${SUBUNIT_LIBRARIES} cutil m)
 include_directories(. ../src)
 add_executable(test_suites main.c check_cache.c check_hashmap.c check_slab.c check_lru.c)
 
@@ -10,6 +20,6 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 else()
   set(ADDITIONAL_LIBS pthread rt)
 endif()
-target_link_libraries(test_suites ${LIBS} ${ADDITIONAL_LIBS})
 
+target_link_libraries(test_suites ${LIBS} ${ADDITIONAL_LIBS})
 add_test(test_suites ${CMAKE_CURRENT_BINARY_DIR}/test_suites)
