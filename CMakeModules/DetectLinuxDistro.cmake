@@ -10,5 +10,10 @@ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
                     OUTPUT_VARIABLE LINUX_DISTRO_RELEASE
                     ERROR_QUIET
                     OUTPUT_STRIP_TRAILING_WHITESPACE)
-    message(STATUS "Linux distro is: ${LINUX_DISTRO_ID} ${LINUX_DISTRO_RELEASE}")
+    execute_process(COMMAND "/usr/bin/lsb_release" "-cs"
+                    TIMEOUT 4
+                    OUTPUT_VARIABLE LINUX_DISTRO_CODENAME
+                    ERROR_QUIET
+                    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    message(STATUS "Linux distro is: ${LINUX_DISTRO_ID} ${LINUX_DISTRO_RELEASE} ${LINUX_DISTRO_CODENAME}")
 endif()
