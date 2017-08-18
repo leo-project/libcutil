@@ -20,7 +20,7 @@ if (SUBUNIT_LIBRARIES AND SUBUNIT_INCLUDE_DIRS)
 else (SUBUNIT_LIBRARIES AND SUBUNIT_INCLUDE_DIRS)
   find_package(PkgConfig)
   if (PKG_CONFIG_FOUND)
-    pkg_check_modules(_CHECK subunit)
+      pkg_check_modules(_SUBUNIT subunit)
   endif (PKG_CONFIG_FOUND)
 
   find_path(SUBUNIT_INCLUDE_DIR
