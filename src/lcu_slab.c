@@ -4,7 +4,7 @@
 #define     SETTING_ITEM_SIZE_MAX   1024 * 1024 * 1
 #define     POWER_SMALLEST      1
 #define     CHUNK_ALIGN_BYTES   8
-#define     SETTING_VERBOSE     2
+#define     SETTING_VERBOSE     1
 
 /*
  * slab pool management
@@ -13,9 +13,9 @@ void* lcu_slab_pool_new(lcu_slab* ps) {
     void* ptr;
     lcu_slab_header* psh;
     if (ps->pool_freelist == NULL) {
-        dprintf("lcu_slab_pool_new limit:%u alloc:%u max:%u min:%u \n", 
+        dprintf("lcu_slab_pool_new limit:%u alloc:%u max:%u min:%u \n",
                 ps->mem_limit, ps->mem_malloced, ps->item_max, ps->item_min);
-        if (ps->mem_limit && 
+        if (ps->mem_limit &&
             (ps->mem_malloced + ps->item_max > ps->mem_limit)) {
             return NULL;
         }
